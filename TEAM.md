@@ -10,8 +10,8 @@ This file is the team roster artifact for the Module 10 four-service Docker Comp
 
 - **Team name:** _(team-chosen identifier — e.g., `team-aurora`)_
 - **Team Slack channel:** _(cohort Slack channel — e.g., `#m10-team-aurora`)_
-- **Team-formation date:** _(YYYY-MM-DD — the date the instructional team posted the roster)_
-- **Designated team submitter:** _(role token — typically `Infra-Integration lead`)_
+- **Team-formation date:** 2026-06-24
+- **Designated team submitter:** Infra-Integration lead
 
 ---
 
@@ -44,12 +44,12 @@ The TA cross-references this checklist against `git log --author=<email>` on the
 
 ### Frontend lead
 
-- [ ] `web/pages/extract.tsx`
-- [ ] `web/pages/kg.tsx`
-- [ ] `web/pages/rag.tsx`
-- [ ] `web/lib/types.ts` — three TypeScript interfaces mirroring Pydantic
-- [ ] `web/Dockerfile` — multi-stage Node
-- [ ] `tests/frontend/playwright/*.spec.ts` — one per page
+- [x] `web/pages/extract.tsx`
+- [x] `web/pages/kg.tsx`
+- [x] `web/pages/rag.tsx`
+- [x] `web/lib/types.ts` — three TypeScript interfaces mirroring Pydantic
+- [x] `web/Dockerfile` — multi-stage Node
+- [x] `tests/frontend/playwright/*.spec.ts` — one per page
 
 ### Infra-Integration lead
 

@@ -49,7 +49,14 @@ curl -s -X POST http://localhost:8000/rag/answer \
 
 # Open the web UI at http://localhost:3000/rag
 ```
+## Development: Frontend
+To run the Next.js frontend locally during development (connecting to the backend at http://localhost:8000):
 
+```bash
+cd web
+npm ci
+npm run dev
+# Access at http://localhost:3000
 ## Submission
 
 Team submission (one per team): the team submitter pastes the team
