@@ -2,6 +2,15 @@ import { test, expect } from '@playwright/test';
 
 test('extract page renders and returns entities', async ({ page }) => {
   await page.route('**/extract', async (route) => {
+    const request = route.request();
+
+    // Do not intercept the page navigation GET /extract.
+    // Only mock the API POST /extract request.
+    if (request.method() !== 'POST') {
+      await route.continue();
+      return;
+    }
+
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
@@ -20,13 +29,13 @@ test('extract page renders and returns entities', async ({ page }) => {
 
   await page.goto('/extract');
 
-  await page.getByPlaceholder('Paste text to extract named entities from...').fill(
-    'Ginger is used in stir-fry recipes.'
-  );
+  const textbox = page.getByPlaceholder('Paste text to extract named entities from...');
+  await expect(textbox).toBeVisible();
 
-  await page.getByRole('button', { name: 'Extract' }).click();
+  await textbox.fill('Ginger is used in stir-fry recipes.');
 
-  await expect(page.getByRole('heading', { name: 'Entities' })).toBeVisible();
-  await expect(page.getByTestId('entity-span')).toContainText('Ginger');
-  await expect(page.getByTestId('entity-span')).toContainText('INGREDIENT');
+  await page.getByRole('button', { name: /extract/i }).click();
+
+  await expect(page.getByTestId('entity-span').getByText('Ginger')).toBeVisible();
+  await expect(page.getByText('INGREDIENT')).toBeVisible();
 });

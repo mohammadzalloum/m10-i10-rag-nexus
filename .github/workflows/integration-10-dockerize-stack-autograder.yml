@@ -205,7 +205,7 @@ jobs:
           cd web
           npm ci
           npx playwright install --with-deps chromium
-          npx playwright test ../tests/frontend/playwright
+          NODE_PATH="$PWD/node_modules" npx playwright test
 
       - name: Tear down
         if: always()
