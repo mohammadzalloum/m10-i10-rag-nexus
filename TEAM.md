@@ -23,10 +23,6 @@ This file is the team roster artifact for the Module 10 four-service Docker Comp
 | Frontend lead          | `FE-RA`                | Instructional team | `frontend/nextjs-pages` | Backend lead         | `web/pages/{extract,kg,rag}.tsx`, `web/lib/types.ts`, `web/Dockerfile`, `web/playwright.config.ts`, `tests/frontend/playwright/*`                                                                                                |
 | Infra-Integration lead | `INF-LS`               | Instructional team | `infra/docker-compose`  | Backend lead         | `docker-compose.yml`, `scripts/healthcheck_stack.sh`, `scripts/seed_neo4j.sh`, `scripts/seed_weaviate.sh`, `.env.example`, `.github/workflows/integration-10-dockerize-stack-autograder.yml`, `README.md`, `tests/integration/*` |
 
-**Fallback compositions for non-3-Team-Member teams:**
-
-* **2 Team Members:** Frontend and Infra-Integration roles merge. The merged Team Member owns all `web/`, `docker-compose.yml`, and `seed_*.sh` files.
-* **4 Team Members:** Infra-Integration splits into "Compose + healthchecks" (owns `docker-compose.yml`, all healthchecks, readiness ordering) and "Seed + runbook" (owns `scripts/seed_neo4j.sh`, `scripts/seed_weaviate.sh`, `README.md` runbook). The two Team Members internal-review each other.
 
 ---
 
