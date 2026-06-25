@@ -8,7 +8,7 @@ on:
 
 jobs:
   structural:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 5
     services: {}
     steps:
@@ -26,7 +26,7 @@ jobs:
         run: pytest tests/ -v --tb=short
 
   stack:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 25
     needs: structural
     env:
