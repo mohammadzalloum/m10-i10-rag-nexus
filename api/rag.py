@@ -23,6 +23,23 @@ Answer:"""
 SENTINEL = "I cannot answer this from the available sources"
 CITATION_PATTERN = re.compile(r"\[(\d+)\]")
 
+CITATION_ONLY_PATTERN = re.compile(r"^\s*(?:\[\d+\]\s*)+$")
+
+
+def extractive_fallback_response(chunk: dict) -> dict:
+    """Return a grounded extractive answer when the generator emits only citations."""
+    text = str(chunk.get("text", "")).strip()
+    first_sentence = re.split(r"(?<=[.!?])\s+", text, maxsplit=1)[0].strip()
+
+    if not first_sentence:
+        return {"answer": SENTINEL, "citations": [], "confidence": 0.0}
+
+    score = max(0.0, min(1.0, float(chunk.get("score", 0.0))))
+    return {
+        "answer": f"{first_sentence} [1]",
+        "citations": [{"chunk_id": chunk["chunk_id"], "score": score}],
+        "confidence": score,
+    }
 
 def assemble_prompt(question: str, chunks: list[dict]) -> Tuple[str, dict[int, dict]]:
     """Number the retrieved chunks 1..k and substitute into the prompt template.
@@ -85,6 +102,12 @@ def compose_rag(question: str, embedder, weaviate_client, generator, k: int = 4)
 
     prompt, numbered = assemble_prompt(question, retrieved)
     raw = generator(prompt, max_new_tokens=256, do_sample=False)[0]["generated_text"]
+
+    answer_without_citations = CITATION_PATTERN.sub("", raw).strip()
+
+    if CITATION_ONLY_PATTERN.fullmatch(raw.strip()) or not answer_without_citations:
+        return extractive_fallback_response(retrieved[0])
+
     citations = extract_citations(raw, numbered)
     if not citations:
         return {"answer": SENTINEL, "citations": [], "confidence": 0.0}
