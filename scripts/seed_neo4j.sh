@@ -13,5 +13,16 @@
 # - Print a one-line confirmation.
 
 set -euo pipefail
-echo "TODO: implement seed_neo4j.sh"
+
+NEO4J_USER="${NEO4J_USER:-neo4j}"
+if [ -z "${NEO4J_PASSWORD:-}" ]; then
+    echo " Error: NEO4J_PASSWORD environment variable is not set."
+    exit 1
+fi
+
+echo "🚀 Injecting seed.cypher into Neo4j container"
+
+docker compose exec -T neo4j cypher-shell -u "$NEO4J_USER" -p "$NEO4J_PASSWORD" < scripts/seed.cypher
+
+echo "Neo4j database seeding completed successfully!"
 exit 1
