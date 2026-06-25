@@ -14,6 +14,11 @@
 #   sets WORKDIR to /app, so `python seed_weaviate.py` resolves there).
 # - Print a one-line confirmation.
 
+#!/usr/bin/env bash
 set -euo pipefail
-echo "TODO: implement seed_weaviate.sh"
-exit 1
+
+echo "Running Weaviate vector seeder inside the API container..."
+
+docker compose exec -T api python api/seed_weaviate.py
+
+echo "Weaviate vector database seeding completed successfully."
