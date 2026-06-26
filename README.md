@@ -154,6 +154,13 @@ http://localhost:3000/rag
 
 ---
 
+
+## Local Development Notes
+
+When working locally, make sure the `.env` file is created from `.env.example` before starting the stack. After updating backend, frontend, or seed data files, rebuild the containers with `docker compose up -d --build` to ensure the latest changes are used.
+
+---
+
 ## Demo RAG Command
 
 ```bash
