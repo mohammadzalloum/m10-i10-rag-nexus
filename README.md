@@ -42,7 +42,37 @@ bash scripts/healthcheck_stack.sh
 bash scripts/seed_neo4j.sh
 bash scripts/seed_weaviate.sh
 
+<<<<<<< Updated upstream
 # Demo curl
+=======
+Open the frontend:
+
+```text
+http://localhost:3000
+```
+
+Useful pages:
+
+```text
+http://localhost:3000/extract
+http://localhost:3000/kg
+http://localhost:3000/rag
+```
+
+---
+
+---
+
+## Local Development Notes
+
+When working locally, make sure the `.env` file is created from `.env.example` before starting the stack. After updating backend, frontend, or seed data files, rebuild the containers with `docker compose up -d --build` to ensure the latest changes are used.
+
+
+
+## Demo RAG Command
+
+```bash
+>>>>>>> Stashed changes
 curl -s -X POST http://localhost:8000/rag/answer \
   -H 'Content-Type: application/json' \
   -d '{"question": "How do I prep ginger for stir-fry?"}' | jq .
